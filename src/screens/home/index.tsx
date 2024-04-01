@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
 
@@ -7,16 +7,31 @@ export function Home() {
   const participants = ['Helton', 'Juliana', 'Diego'];
 
   function handleAddParticipant() {
-    console.log('AddParticipant');
+    if(participants.includes('Helton'))
+      return Alert.alert(
+          'Participante já cadastrado',
+          'Já existe um participante com esse nome'
+        )
   }
 
   function handleRemoveParticipant(name: string) {
-    console.log('RemoveParticipant');
+    Alert.alert(
+      'Remover',
+      `Remover o participante ${name}?`, [
+        {
+          text: 'Sim',
+          onPress: () => Alert.alert(`${name} foi removido(a) com sucesso`)
+        },
+        {
+          text: 'Não',
+          style: 'cancel'
+        }
+      ]
+    )
   }
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
       <Text style={styles.eventName}>Nome do evento</Text>
       <Text style={styles.eventDate}>Domingo, 31 de março de 2024</Text>
       
@@ -34,16 +49,25 @@ export function Home() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {
-          participants.map((participant, index) => (
-            <Participant 
-              key={index} name={participant}
-              onRemove={() => 
-              handleRemoveParticipant("Helton")} />
-          )) 
-        }
-      </ScrollView> 
+      <FlatList 
+        data={participants} 
+        keyExtractor={item => item}
+        renderItem={( { item }) => (
+          <Participant 
+            key={item} 
+            name={item} 
+            onRemove={() => handleRemoveParticipant(item)}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <Text style={styles.listEmptyText}>
+            Ninguém chegou no evento ainda? Adicione participantes a sua lista de presença
+          </Text>
+        )}
+      />
+        
+      
     </View>
   );
 }
