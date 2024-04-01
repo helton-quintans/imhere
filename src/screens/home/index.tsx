@@ -2,6 +2,7 @@ import { Alert, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
 import { useState } from 'react';
+import { getCurrentDate } from '../../utils';
 
 export function Home() {
 
@@ -40,7 +41,7 @@ export function Home() {
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>Nome do evento</Text>
-      <Text style={styles.eventDate}>Domingo, 31 de março de 2024</Text>
+      <Text style={styles.eventDate}>{getCurrentDate()}</Text>
       
       <View style={styles.form}>
         <TextInput 
