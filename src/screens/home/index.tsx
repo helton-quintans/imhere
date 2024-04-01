@@ -12,8 +12,8 @@ export function Home() {
   function handleAddParticipant() {
     if(participants.includes(participantName)) {
       return Alert.alert(
-        'Participante já cadastrado',
-        'Já existe um participante com esse nome'
+        'Participant already registered',
+        'There is already a participant with this name'
       )
     }
      
@@ -24,14 +24,14 @@ export function Home() {
 
   function handleRemoveParticipant(name: string) {
     Alert.alert(
-      'Remover',
-      `Remover o participante ${name}?`, [
+      'Remove',
+      `Remove participant ${name}?`, [
         {
-          text: 'Sim',
-          onPress: () => Alert.alert(`${name} foi removido(a) com sucesso`)
+          text: 'Yes',
+          onPress: () => setParticipants(prevState => prevState.filter(participant => participant !== name)),
         },
         {
-          text: 'Não',
+          text: 'No',
           style: 'cancel'
         }
       ]
@@ -40,13 +40,13 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.eventName}>Nome do evento</Text>
+      <Text style={styles.eventName}>Event Name</Text>
       <Text style={styles.eventDate}>{getCurrentDate()}</Text>
       
       <View style={styles.form}>
         <TextInput 
           style={styles.input}
-          placeholder='Nome do participante'    
+          placeholder='Participant name'    
           placeholderTextColor="#6B6B6B"  
           onChangeText={e => setParticipantName(e)}
           value={participantName}
@@ -74,7 +74,7 @@ export function Home() {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={() => (
           <Text style={styles.listEmptyText}>
-            Ninguém chegou no evento ainda? Adicione participantes a sua lista de presença
+            Nobody has arrived at the event yet? Add participants to your attendance list.
           </Text>
         )}
       />
