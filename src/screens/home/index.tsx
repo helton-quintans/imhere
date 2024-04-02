@@ -21,7 +21,6 @@ export function Home() {
     setParticipantName('')
   }
     
-
   function handleRemoveParticipant(name: string) {
     Alert.alert(
       'Remove',
