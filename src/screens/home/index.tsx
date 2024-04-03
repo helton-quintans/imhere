@@ -77,8 +77,6 @@ export function Home() {
           </Text>
         )}
       />
-        
-      
     </View>
   );
 }
